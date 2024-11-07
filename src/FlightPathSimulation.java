@@ -4,6 +4,9 @@ import ecs100.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.Array;
 import java.util.*;
 import java.util.List;
@@ -16,32 +19,42 @@ public class FlightPathSimulation extends JFrame {
     private boolean star;
     private String currentFlight;
 
+    public String priorityRunway;
+
     private List<String> allProcedures = new ArrayList<>();
 
-    private List<String> sidProcedures;
-    private List<String> starProcedures;
+    private List<DepartureSid> sidProcedures;
+    private List<ArrivalStar> starProcedures;
     private String[] runways = {"RWY05R, RWY23L"};
 
 
-    public void loadSidData(){
-
-
-        for(int i = 0; i<runways.length; i++){
-            String runway = runways[i];
-            if(runway.equals("RWY05R")){
-                sidProcedures = new ArrayList<>();
-                sidProcedures.add(runway);
+    public void loadSidData() {
+        String filePath = "src/data/RWY05R - BASIV9B";
+        try {
+            Scanner sc = new Scanner(Path.of(filePath));
+            String procedureName = sc.next();
+            while (sc.hasNextLine()) {
+                String waypointName = sc.next();
+                double altitude = sc.nextDouble();
+                int speed = sc.nextInt();
+                double heading = sc.nextDouble();
+                Waypoint wp = new Waypoint(waypointName, altitude, speed, heading);
+                //DepartureSid dp = new DepartureSid(procedureName,)
             }
+
+
+        } catch (IOException e) {
+            UI.println("File Failure" + e);
         }
     }
 
-    public void loadStarData(){
+    public void loadStarData() {
 
     }
 
-    public FlightPathSimulation(){
+    public FlightPathSimulation() {
         setTitle("Flight Path Simulation");
-        setSize(400,400);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
 
@@ -55,6 +68,21 @@ public class FlightPathSimulation extends JFrame {
         JButton runSimulation = new JButton("Run Simulation");
         add(runSimulation);
 
+        //button that sets the priority runway
+
+        JButton priorityRunway = new JButton("Set Priority Runway between RWY05R and RWY23L");
+        add(priorityRunway);
+        priorityRunway.addActionListener(e -> {
+            int result = JOptionPane.showConfirmDialog(this,"Do you want RWY05R as priority?", "Set Prioirty Runway", JOptionPane.YES_NO_OPTION );
+            if(result == JOptionPane.YES_OPTION){
+                setPriorityRunway(true);
+                System.out.println("RWY05R Selected");
+            }else{
+                setPriorityRunway(false);
+                System.out.println("RWY23L Selected");
+            }
+        });
+
         //departure process buttons
 
         JButton departureButton = new JButton("Departure");
@@ -62,13 +90,13 @@ public class FlightPathSimulation extends JFrame {
         departureButton.addActionListener(e -> {
             sid = true;
             star = false;
-            if(currentFlight!=null) {
+            if (currentFlight != null) {
                 departureRoutingProcess(currentFlight);
-            }else{
+            } else {
                 UI.println("Please Select a Flight");
             }
 
-    });
+        });
 
         //arrival process buttons
 
@@ -77,9 +105,9 @@ public class FlightPathSimulation extends JFrame {
         arrivalButton.addActionListener(e -> {
             sid = false;
             star = true;
-            if(currentFlight!=null){
+            if (currentFlight != null) {
                 arrivalRoutingProcess(currentFlight);
-            }else{
+            } else {
                 UI.println("Please Select a Flight");
             }
         });
@@ -88,65 +116,71 @@ public class FlightPathSimulation extends JFrame {
         loadImage();
         add(imageLabel);
 
-
-
-
-
     }
 
-    public void setupGUI(){
+    public void setPriorityRunway(boolean runway) {
+        if (runway) {
+            priorityRunway = "RWY05R";
+        } else {
+            priorityRunway = "RWY23L";
+        }
+    }
 
-        UI.addButton("Run Simulation" , this::runSimulation);
-        UI.addTextField("Flight Number",(String flightNum) ->{ this.currentFlight = flightNum;});
-        UI.addButton("Departure Procedures", () ->{
+    public void setupGUI() {
+
+        UI.addButton("Run Simulation", this::runSimulation);
+        UI.addTextField("Flight Number", (String flightNum) -> {
+            this.currentFlight = flightNum;
+        });
+        UI.addButton("Departure Procedures", () -> {
             sid = true;
             star = false;
-            if(currentFlight!=null){
+            if (currentFlight != null) {
                 departureRoutingProcess(currentFlight);
-            }else{
+            } else {
                 UI.println("Select A Flight Number");
             }
         });
-        UI.addButton("Arrival Procedures", () ->{
+        UI.addButton("Arrival Procedures", () -> {
             sid = false;
             star = true;
-            if(currentFlight!=null){
+            if (currentFlight != null) {
                 arrivalRoutingProcess(currentFlight);
-            }else{
+            } else {
                 UI.println("Select A Flight Number");
             }
         });
     }
 
-    public void runSimulation(){
+    public void runSimulation() {
         //run the flight simulation
-    }
-
-    public void departureRoutingProcess(String flightNumber){
-
 
     }
 
-    public void arrivalRoutingProcess(String flightNumber){
+    public void departureRoutingProcess(String flightNumber) {
+
 
     }
 
-    public static void loadImage(){
+    public void arrivalRoutingProcess(String flightNumber) {
+
+    }
+
+    public static void loadImage() {
         String filePath = "src/airport.png";
-        UI.drawImage(filePath, 100,200);
+        UI.drawImage(filePath, 100, 200);
     }
 
 
-
-
-
-    public static void main(String[] args){
-       SwingUtilities.invokeLater(() ->{
-           FlightPathSimulation fp = new FlightPathSimulation();
-           fp.setVisible(true);
-       });
-       // fp.setupGUI();
-       // fp.loadImage();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            FlightPathSimulation fp = new FlightPathSimulation();
+            fp.setVisible(true);
+        });
+        // fp.setupGUI();
+        // fp.loadImage();
 
     }
+
 }
+

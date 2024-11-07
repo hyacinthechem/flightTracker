@@ -2,19 +2,19 @@ package src;
 import ecs100.*;
 import java.util.*;
 
-
-
-public class ArrivalStar  {
+public class ArrivalStar implements Comparable<ArrivalStar>{
     private String procedureName;
     private Set<Waypoint> waypoints;
+    private boolean internationalFlight;
 
 
-    public ArrivalStar(String procedureName, Set<Waypoint> waypoints) {
+    public ArrivalStar(String procedureName, Set<Waypoint> waypoints,boolean internationalFlight) {
         this.procedureName = procedureName;
         this.waypoints = waypoints;
+        this.internationalFlight = internationalFlight;
     }
 
-    public String getProcedureName() {
+    public String getSTARProcedureName() {
         return procedureName;
     }
 
@@ -26,12 +26,29 @@ public class ArrivalStar  {
         return Collections.unmodifiableSet(waypoints);
     }
 
+    public boolean isInternationalFlight() {
+        return internationalFlight;
+    }
+
     @Override
     public String toString(){
         return procedureName + " " + waypoints;
     }
 
-//    public int compare;
+    @Override
+    public int compareTo(ArrivalStar o) {
+        // Prioritize international flights first
+        if (this.internationalFlight && !o.internationalFlight) {
+            return -1; // This flight is international, so it comes first
+        }
+        if (!this.internationalFlight && o.internationalFlight) {
+            return 1; // This flight is domestic, so it comes after international
+        }
+
+        // If both are international or both are domestic, compare by the number of waypoints
+        return Integer.compare(this.waypoints.size(), o.waypoints.size());
+    }
+
 
 
 
