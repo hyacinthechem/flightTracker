@@ -21,36 +21,49 @@ public class FlightPathSimulation extends JFrame {
 
     public String priorityRunway;
 
-    private List<String> allProcedures = new ArrayList<>();
+    private List<Object> allProcedures = new ArrayList<>();
+    private Set<Waypoint> waypoints;
 
     private List<DepartureSid> sidProcedures;
     private List<ArrivalStar> starProcedures;
     private String[] runways = {"RWY05R, RWY23L"};
 
+    public void loaders() {
+        List<String> procedureFiles = Arrays.asList("src/data/RWY05R - BATOS3Q", "src/data/RWY23L - LENGU4P","src/data/RWY05R - BASIV9B", "src/data/RWY23L - LUNBI1N");
+        loadSidStarData(procedureFiles);
+    }
 
-    public void loadSidData() {
-        String filePath = "src/data/RWY05R - BASIV9B";
-        try {
-            Scanner sc = new Scanner(Path.of(filePath));
-            String procedureName = sc.next();
-            while (sc.hasNextLine()) {
-                String waypointName = sc.next();
-                double altitude = sc.nextDouble();
-                int speed = sc.nextInt();
-                double heading = sc.nextDouble();
-                Waypoint wp = new Waypoint(waypointName, altitude, speed, heading);
-                //DepartureSid dp = new DepartureSid(procedureName,)
+
+    public void loadSidStarData(List<String> procedureFiles) {
+        for (String filePath : procedureFiles) {
+            try (Scanner sc = new Scanner(Path.of(filePath))) {
+                waypoints = new HashSet<>();
+                String procedureName = sc.next();
+                String runway = sc.next();
+                String procedureType = sc.next();
+
+                while(sc.hasNextLine()){
+                    String waypointName = sc.next();
+                    double altitude = sc.nextDouble();
+                    int speed = sc.nextInt();
+                    double heading = sc.nextDouble();
+                    Waypoint wp = new Waypoint(waypointName, altitude, speed, heading);
+                    waypoints.add(wp);
+                }
+                if(procedureType.equals("SID")){
+                    DepartureSid ds = new DepartureSid(procedureName,waypoints,runway);
+                    allProcedures.add(ds);
+                }else{
+                    ArrivalStar ar = new ArrivalStar(procedureName, waypoints, runway);
+                    allProcedures.add(ar);
+                }
+
+            } catch (IOException e) {
+                UI.println("File Failure for " + filePath + " : " + e);
             }
-
-
-        } catch (IOException e) {
-            UI.println("File Failure" + e);
         }
     }
 
-    public void loadStarData() {
-
-    }
 
     public FlightPathSimulation() {
         setTitle("Flight Path Simulation");
@@ -177,6 +190,8 @@ public class FlightPathSimulation extends JFrame {
             FlightPathSimulation fp = new FlightPathSimulation();
             fp.setVisible(true);
         });
+        FlightPathSimulation fps = new FlightPathSimulation();
+        fps.loaders();
         // fp.setupGUI();
         // fp.loadImage();
 

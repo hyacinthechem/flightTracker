@@ -8,12 +8,14 @@ public class Flight {
     private String flightNumber;
     private String aircraftType;
     private String airline;
+    private boolean internationalFlight;
 
 
-    public Flight(String flightNumber, String aircraftType, String airline){
+    public Flight(String flightNumber, String aircraftType, String airline,boolean internationalFlight){
         this.flightNumber = flightNumber;
         this.aircraftType = aircraftType;
         this.airline = airline;
+        this.internationalFlight = internationalFlight;
 
     }
 
@@ -27,6 +29,10 @@ public class Flight {
 
     public String getAirline(){
         return airline;
+    }
+
+    public boolean isInternationalFlight(){
+        return internationalFlight;
     }
 
     public void draw(double x, double y){

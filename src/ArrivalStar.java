@@ -1,24 +1,27 @@
 package src;
 import ecs100.*;
+
+import javax.swing.plaf.PanelUI;
 import java.util.*;
 
-public class ArrivalStar implements Comparable<ArrivalStar>{
+public class ArrivalStar {
     private String procedureName;
     private Set<Waypoint> waypoints;
-    private boolean internationalFlight;
+    private String runway;
+    private Comparator<Flight> flightComparator;
 
 
-    public ArrivalStar(String procedureName, Set<Waypoint> waypoints,boolean internationalFlight) {
+    public ArrivalStar(String procedureName, Set<Waypoint> waypoints,String runway) {
         this.procedureName = procedureName;
         this.waypoints = waypoints;
-        this.internationalFlight = internationalFlight;
+        this.runway = runway;
     }
 
     public String getSTARProcedureName() {
         return procedureName;
     }
 
-    public int sizeOfSid(){
+    public int sizeOfStar(){
         return waypoints.size();
     }
 
@@ -26,17 +29,38 @@ public class ArrivalStar implements Comparable<ArrivalStar>{
         return Collections.unmodifiableSet(waypoints);
     }
 
-    public boolean isInternationalFlight() {
-        return internationalFlight;
+    public String getRunway() {
+        return runway;
     }
+
 
     @Override
     public String toString(){
         return procedureName + " " + waypoints;
     }
 
+    public Comparator<Flight> getFlightComparator() {
+        flightComparator = new Comparator<Flight>() {
+            public int compare(Flight o1, Flight o2) {
+                if(o1.isInternationalFlight() && o2.isInternationalFlight()){
+                    return 0;
+                }else if(o1.isInternationalFlight() && !o2.isInternationalFlight()){
+                    return -1;
+                }else if(o2.isInternationalFlight() && !o1.isInternationalFlight()){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        };
+
+        return flightComparator;
+    }
+
+
+    /*
     @Override
-    public int compareTo(ArrivalStar o) {
+    public int compareTo(Flight o) {
         // Prioritize international flights first
         if (this.internationalFlight && !o.internationalFlight) {
             return -1; // This flight is international, so it comes first
@@ -48,6 +72,8 @@ public class ArrivalStar implements Comparable<ArrivalStar>{
         // If both are international or both are domestic, compare by the number of waypoints
         return Integer.compare(this.waypoints.size(), o.waypoints.size());
     }
+
+     */
 
 
 

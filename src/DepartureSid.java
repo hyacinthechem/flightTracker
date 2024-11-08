@@ -6,13 +6,11 @@ public class DepartureSid implements Comparable<DepartureSid> {
     private String procedureName;
     private Set<Waypoint> waypoints;
     private String runway;
-    private boolean internationalFlight;
 
-    public DepartureSid(String procedureName, Set<Waypoint> waypoints, String runway, boolean internationalFlight) {
+    public DepartureSid(String procedureName, Set<Waypoint> waypoints, String runway) {
         this.procedureName = procedureName;
         this.waypoints = waypoints;
         this.runway = runway;
-        this.internationalFlight = internationalFlight;
     }
 
     public String getSIDProcedureName() {
@@ -31,9 +29,6 @@ public class DepartureSid implements Comparable<DepartureSid> {
         return Collections.unmodifiableSet(waypoints);
     }
 
-    public boolean isInternationalFlight() {
-        return internationalFlight;
-    }
 
     @Override
     public String toString() {
