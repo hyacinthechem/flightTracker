@@ -45,9 +45,11 @@ public class FlightData {
                 if(procedureType.equals("SID")){
                     DepartureSid ds = new DepartureSid(procedureName,waypoints,runway);
                     allProcedures.add(ds);
+                    sidProcedures.add(ds);
                 }else{
                     ArrivalStar ar = new ArrivalStar(procedureName, waypoints, runway);
                     allProcedures.add(ar);
+                    starProcedures.add(ar);
                 }
 
             } catch (IOException e) {

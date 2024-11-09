@@ -22,21 +22,31 @@ public class FlightPathSimulation extends JFrame {
     private FlightData flightData = new FlightData();
 
     public String priorityRunway;   // Sets the priority runway ( either 05R or 23L )
-    public String[] runway = {"RWY05R","RWY23L"}; //runway options
+    public String[] runway = {"RWY05R", "RWY23L"}; //runway options
+    public static final double RUNWAY_LIMIT = 3;
+    public static final double RUNWAY_TOP_LIMIT = 1;
+    public static final double APPROACH_LIMIT = 4;
 
+    private List<Flight> allFlights = flightData.getAllFlights();
     private Queue<Flight> flightQueue; //main queue where flights wait to then be put in runway queue
     private Map<String, Queue<Flight>> runwayQueue = new HashMap();
+    private Map<String, Flight> flightMap = new HashMap(); //Key Value pairs mapping flightNumber String to Flight Object
 
-    private void initialiseSimulation(){
+    private void initialiseSimulation() {
         flightData.loaders();
-        if(prioirty){
+        if (prioirty) {
             flightQueue = new PriorityQueue<>();
-        }else{
+        } else {
             flightQueue = new ArrayDeque<>();
         }
 
-        for(int i = 0; i < runway.length; i++){
-            runwayQueue.put(runway[i],new ArrayDeque<>());
+        for (Flight flight : allFlights) {
+            flightQueue.offer(flight);
+            flightMap.put(flight.getFlightNumber(), flight);
+        }
+
+        for (int i = 0; i < runway.length; i++) {
+            runwayQueue.put(runway[i], new ArrayDeque<>());
         }
     }
 
@@ -61,11 +71,11 @@ public class FlightPathSimulation extends JFrame {
         JButton priorityRunway = new JButton("Set Priority Runway between RWY05R and RWY23L");
         add(priorityRunway);
         priorityRunway.addActionListener(e -> {
-            int result = JOptionPane.showConfirmDialog(this,"Do you want RWY05R as priority?", "Set Prioirty Runway", JOptionPane.YES_NO_OPTION );
-            if(result == JOptionPane.YES_OPTION){
+            int result = JOptionPane.showConfirmDialog(this, "Do you want RWY05R as priority?", "Set Prioirty Runway", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
                 setPriorityRunway(true);
                 System.out.println("RWY05R Selected");
-            }else{
+            } else {
                 setPriorityRunway(false);
                 System.out.println("RWY23L Selected");
             }
@@ -142,29 +152,76 @@ public class FlightPathSimulation extends JFrame {
 
     public void runSimulation() {
         //run the flight simulation
-        for(Flight f : flightData.getAllFlights()){
-            UI.println(f.toString());
+        int time = 0;
+        while (!flightQueue.isEmpty()) { //base case ( keep simulation running when there is a flight in the queue )
+            time++; //each iteration advances timer by one tick
+
+            departureRoutingProcess(flightQueue.poll().getFlightNumber());
+            arrivalRoutingProcess(flightQueue.poll().getFlightNumber());
+
         }
 
         //departingflights
-           //generateDepartingFlight()  => create separate class to deal with this
-           //generateSidDeparture()
+
+
+        //generateDepartingFlight()  => create separate class to deal with this
+        //generateSidDeparture()
 
         //Arrival Flights
-           //generateArrivalFlight()  => create separate class to deal with this
-           //generateStarDeparture()
+        //generateArrivalFlight()  => create separate class to deal with this
+        //generateStarDeparture()
 
 
     }
 
-    public void departureRoutingProcess(String flightNumber) {
+    public void departureRoutingProcess(String flightnumber) {
+        Flight flight = flightMap.get(flightnumber);
+        for (Queue<Flight> runwayQueue : runwayQueue.values()) {
+            if (runwayQueue.size() < RUNWAY_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
+                runwayQueue.offer(flight);
+                UI.println("Flight Number: " + flight.getFlightNumber() + " Entered runway queue");
+            }
 
+            // assign a runway
+            Random rand = new Random();
+            flight.assignRunway(runway[rand.nextInt(1)]);
+            //generate a SID Departure Process
+            List<DepartureSid> sidProcedures = flightData.getSidProcedures();
+            for (DepartureSid sid : sidProcedures) {
+                if (flight.getRunway().equals(sid.getRunway())) {
+                    UI.println("Flight Number: " + flight.getFlightNumber() + "Assigned SID: " + sid.getSIDProcedureName());
+                }
+            }
+            flight.setTakeoff(true);
+            runwayQueue.poll();
+        }
 
     }
 
-    public void arrivalRoutingProcess(String flightNumber) {
+    public void arrivalRoutingProcess(String flightnumber) {
+        Flight flight = flightMap.get(flightnumber);
+        Random rand = new Random();
+        flight.assignRunway(runway[rand.nextInt(1)]);
+        for (Queue<Flight> runwayQueue : runwayQueue.values()) {
+            if (runwayQueue.size() < APPROACH_LIMIT && runwayQueue.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) {
+                runwayQueue.offer(flight);
+                UI.println("Flight Number: " + flight.getFlightNumber() + " Entered approach for Runway:  " + flight.getRunway());
+            }
 
+            List<ArrivalStar> arrivalProcedures = flightData.getArrivalProcedures();
+            for (ArrivalStar STAR : arrivalProcedures) {
+                if (flight.getRunway().equals(STAR.getRunway())) {
+                    UI.println("Flight Number: " + flight.getFlightNumber() + "Assigned STAR" + STAR.getSTARProcedureName());
+                }
+                UI.println("Flight Number: " + flight.getFlightNumber() + "Cleared to Land Runway  " + STAR.getRunway());
+                flight.setLanded(true);
+            }
+        }
+        if (flight.hasLanded()) {
+            UI.println("Landed");
+        }
     }
+
 
     public static void loadImage() {
         String filePath = "src/airport.png";

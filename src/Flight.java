@@ -8,7 +8,10 @@ public class Flight {
     private String flightNumber;
     private String aircraftType;
     private String airline;
+    private String runway;
     private boolean internationalFlight;
+    private boolean takeoff;
+    private boolean landed;
 
 
     public Flight(String flightNumber, String aircraftType, String airline,boolean internationalFlight){
@@ -53,6 +56,30 @@ public class Flight {
                 UI.setColor(Color.red);
                 UI.fillOval(x,y,x+100, y+100);
         }
+    }
+
+    public void assignRunway(String runway){
+        this.runway = runway;
+    }
+
+    public void setTakeoff(boolean takeoff){
+        this.takeoff = takeoff;
+    }
+
+    public void setLanded(boolean landed){
+        this.landed = landed;
+    }
+
+    public boolean hasTakenOff(){
+        return takeoff;
+    }
+
+    public boolean hasLanded(){
+        return landed;
+    }
+
+    public String getRunway(){
+        return runway;
     }
 
     @Override
