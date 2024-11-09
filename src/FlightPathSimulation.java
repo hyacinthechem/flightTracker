@@ -17,11 +17,28 @@ public class FlightPathSimulation extends JFrame {
     private JLabel imageLabel;
     private boolean sid;
     private boolean star;
+    private boolean prioirty = false;
     private String currentFlight;
+    private FlightData flightData = new FlightData();
 
-    public String priorityRunway;
-    public String[] runway = {"RWY05R","RWY23L"};
+    public String priorityRunway;   // Sets the priority runway ( either 05R or 23L )
+    public String[] runway = {"RWY05R","RWY23L"}; //runway options
 
+    private Queue<Flight> flightQueue; //main queue where flights wait to then be put in runway queue
+    private Map<String, Queue<Flight>> runwayQueue = new HashMap();
+
+    private void initialiseSimulation(){
+        flightData.loaders();
+        if(prioirty){
+            flightQueue = new PriorityQueue<>();
+        }else{
+            flightQueue = new ArrayDeque<>();
+        }
+
+        for(int i = 0; i < runway.length; i++){
+            runwayQueue.put(runway[i],new ArrayDeque<>());
+        }
+    }
 
     public FlightPathSimulation() {
         setTitle("Flight Path Simulation");
@@ -125,6 +142,18 @@ public class FlightPathSimulation extends JFrame {
 
     public void runSimulation() {
         //run the flight simulation
+        for(Flight f : flightData.getAllFlights()){
+            UI.println(f.toString());
+        }
+
+        //departingflights
+           //generateDepartingFlight()  => create separate class to deal with this
+           //generateSidDeparture()
+
+        //Arrival Flights
+           //generateArrivalFlight()  => create separate class to deal with this
+           //generateStarDeparture()
+
 
     }
 
@@ -149,9 +178,9 @@ public class FlightPathSimulation extends JFrame {
             fp.setVisible(true);
         });
         FlightPathSimulation fps = new FlightPathSimulation();
-         fps.setupGUI();
-         FlightData fd = new FlightData();
-         fd.loaders();
+        fps.initialiseSimulation();
+        fps.setupGUI();
+
         // fp.loadImage();
 
     }
