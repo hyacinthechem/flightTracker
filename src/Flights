@@ -1,0 +1,786 @@
+
+AIRLINE
+FLIGHT # CARRIER DESTINATION
+SCHEDULED
+ESTIMATED STATUS
+
+QF144
+Sydney
+08 Nov 01:15pm
+Est 08 Nov 01:15pm
+Departed
+
+AA34
+Dallas-Fort Worth
+08 Nov 01:20pm
+Est 08 Nov 01:20pm
+Departed
+
+QF154
+Melbourne
+08 Nov 01:30pm
+Est 08 Nov 01:45pm
+Departed
+
+NZ127
+Melbourne
+08 Nov 01:45pm
+Est 08 Nov 02:00pm
+Departed
+
+SQ4232
+NZ127
+Melbourne
+08 Nov 01:45pm
+Est 08 Nov 02:00pm
+Departed
+
+JQ150
+Brisbane
+08 Nov 01:55pm
+Est 08 Nov 01:55pm
+Departed
+
+FJ410
+Nadi
+08 Nov 02:05pm
+Est 08 Nov 02:05pm
+Departed
+
+NZ175
+Perth
+08 Nov 02:05pm
+Est 08 Nov 02:33pm
+Departed
+
+SQ4217
+NZ175
+Perth
+08 Nov 02:05pm
+Est 08 Nov 02:33pm
+Departed
+
+QR921
+Doha
+08 Nov 02:40pm
+Est 08 Nov 02:40pm
+Departed
+
+DL64
+Los Angeles
+08 Nov 02:50pm
+Est 08 Nov 02:50pm
+Departed
+
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+AY5102
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+BA4550
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+LA5641
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+LH7020
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+LX9520
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+NZ4995
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+QR5811
+CX198
+Hong Kong
+08 Nov 02:55pm
+Est 08 Nov 02:55pm
+Gate closed
+
+SQ286
+Singapore
+08 Nov 03:15pm
+Est 08 Nov 03:15pm
+Boarding
+
+LH9767
+SQ286
+Singapore
+08 Nov 03:15pm
+Est 08 Nov 03:15pm
+Boarding
+
+NZ3286
+SQ286
+Singapore
+08 Nov 03:15pm
+Est 08 Nov 03:15pm
+Boarding
+
+OZ6800
+SQ286
+Singapore
+08 Nov 03:15pm
+Est 08 Nov 03:15pm
+Boarding
+
+NZ125
+Melbourne
+08 Nov 03:30pm
+Est 08 Nov 03:30pm
+Go to gate
+
+NZ998
+Apia
+08 Nov 03:30pm
+Est 08 Nov 03:30pm
+Go to gate
+
+SQ4257
+NZ998
+Apia
+08 Nov 03:30pm
+Est 08 Nov 03:30pm
+Go to gate
+
+SQ4234
+NZ125
+Melbourne
+08 Nov 03:30pm
+Est 08 Nov 03:30pm
+Go to gate
+
+QF156
+Melbourne
+08 Nov 03:35pm
+Est 08 Nov 03:35pm
+Boarding
+
+UA916
+San Francisco
+08 Nov 03:50pm
+Est 08 Nov 03:50pm
+Cancelled
+
+QF146
+Sydney
+08 Nov 04:00pm
+Est 08 Nov 04:00pm
+Relax
+
+NZ147
+Brisbane
+08 Nov 04:10pm
+Est 08 Nov 04:10pm
+Relax
+
+SQ4222
+NZ147
+Brisbane
+08 Nov 04:10pm
+Est 08 Nov 04:10pm
+Relax
+
+NZ111
+Sydney
+08 Nov 04:20pm
+Est 08 Nov 04:20pm
+Relax
+
+SQ4247
+NZ111
+Sydney
+08 Nov 04:20pm
+Est 08 Nov 04:20pm
+Relax
+
+JQ134
+Gold Coast
+08 Nov 04:35pm
+Est 08 Nov 04:35pm
+Relax
+
+QF126
+Brisbane
+08 Nov 04:35pm
+Est 08 Nov 04:55pm
+New time
+
+QF3
+New York JFK
+08 Nov 04:55pm
+Est 08 Nov 04:55pm
+Relax
+
+NZ974
+Tonga
+08 Nov 05:45pm
+Est 08 Nov 05:45pm
+Check in & go to security
+
+SQ4287
+NZ974
+Tonga
+08 Nov 05:45pm
+Est 08 Nov 05:45pm
+Check in & go to security
+
+NZ129
+Melbourne
+08 Nov 06:25pm
+Est 08 Nov 06:25pm
+Check in & go to security
+
+SQ4233
+NZ129
+Melbourne
+08 Nov 06:25pm
+Est 08 Nov 06:25pm
+Check in & go to security
+
+TG4834
+NZ129
+Melbourne
+08 Nov 06:25pm
+Est 08 Nov 06:25pm
+Check in & go to security
+
+QF148
+Sydney
+08 Nov 07:00pm
+Est 08 Nov 07:00pm
+Check in opening soon
+
+LA800
+Santiago
+08 Nov 07:05pm
+Est 08 Nov 07:05pm
+Check in not open yet
+
+NZ62
+Bali
+08 Nov 07:20pm
+Est 08 Nov 07:20pm
+Check in & go to security
+
+NZ902
+Tahiti
+08 Nov 07:30pm
+Est 08 Nov 07:30pm
+Check in & go to security
+
+NZ4
+Los Angeles
+08 Nov 07:40pm
+Est 08 Nov 07:40pm
+Check in & go to security
+
+LH7159
+NZ4
+Los Angeles
+08 Nov 07:40pm
+Est 08 Nov 07:40pm
+Check in & go to security
+
+NZ8
+San Francisco
+08 Nov 07:55pm
+Est 08 Nov 07:55pm
+Check in & go to security
+
+LH7157
+NZ8
+San Francisco
+08 Nov 07:55pm
+Est 08 Nov 07:55pm
+Check in & go to security
+
+VS7650
+NZ8
+San Francisco
+08 Nov 07:55pm
+Est 08 Nov 07:55pm
+Check in & go to security
+
+NZ109
+Sydney
+08 Nov 08:00pm
+Est 08 Nov 08:00pm
+Check in & go to security
+
+SQ4245
+NZ109
+Sydney
+08 Nov 08:00pm
+Est 08 Nov 08:00pm
+Check in & go to security
+
+NZ6
+Los Angeles
+08 Nov 08:10pm
+Est 08 Nov 08:10pm
+Check in & go to security
+
+LH7165
+NZ6
+Los Angeles
+08 Nov 08:10pm
+Est 08 Nov 08:10pm
+Check in & go to security
+
+CA784
+Beijing
+08 Nov 08:30pm
+Est 08 Nov 08:30pm
+Check in not open yet
+
+JQ214
+Melbourne
+08 Nov 08:40pm
+Est 08 Nov 08:40pm
+Check in not open yet
+
+QF236
+JQ214
+Melbourne
+08 Nov 08:40pm
+Est 08 Nov 08:40pm
+Check in not open yet
+
+CI54
+Brisbane
+08 Nov 08:50pm
+Est 08 Nov 08:50pm
+Check in not open yet
+
+HA2864
+CI54
+Brisbane
+08 Nov 08:50pm
+Est 08 Nov 08:50pm
+
+QF158
+Melbourne
+08 Nov 08:55pm
+Est 08 Nov 08:55pm
+Check in not open yet
+
+EK449
+Dubai
+08 Nov 09:05pm
+Est 08 Nov 09:05pm
+Check in not open yet
+
+HU798
+Haikou
+08 Nov 10:00pm
+Est 08 Nov 10:00pm
+Check in not open yet
+
+MU780
+Shanghai
+08 Nov 10:00pm
+Est 08 Nov 10:00pm
+Check in not open yet
+
+EY1005
+MU780
+Shanghai
+08 Nov 10:00pm
+Est 08 Nov 10:00pm
+Check in not open yet
+
+LA8737
+MU780
+Shanghai
+08 Nov 10:00pm
+Est 08 Nov 10:00pm
+Check in not open yet
+
+CZ306
+Guangzhou
+08 Nov 10:10pm
+Est 08 Nov 10:10pm
+Check in not open yet
+
+JQ148
+Brisbane
+08 Nov 11:25pm
+Est 08 Nov 11:25pm
+Check in not open yet
+
+NZ289
+Shanghai
+08 Nov 11:55pm
+Est 08 Nov 11:55pm
+Check in & go to security
+
+LA1164
+Santiago
+09 Nov 12:00am
+Est 09 Nov 12:00am
+
+SQ282
+Singapore
+09 Nov 01:10am
+Est 09 Nov 01:10am
+Check in not open yet
+
+NZ181
+Gold Coast
+09 Nov 06:00am
+Est 09 Nov 06:00am
+Security opens at 04:30
+
+QF140
+Sydney
+09 Nov 06:00am
+Est 09 Nov 06:00am
+Check in not open yet
+
+SQ4214
+NZ181
+Gold Coast
+09 Nov 06:00am
+Est 09 Nov 06:00am
+Security opens at 04:30
+
+QF152
+Melbourne
+09 Nov 06:05am
+Est 09 Nov 06:05am
+Check in not open yet
+
+JQ202
+Sydney
+09 Nov 06:20am
+Est 09 Nov 06:20am
+Check in not open yet
+
+QF222
+JQ202
+Sydney
+09 Nov 06:20am
+Est 09 Nov 06:20am
+Check in not open yet
+
+NZ141
+Brisbane
+09 Nov 06:25am
+Est 09 Nov 06:25am
+Check in opens at 4am
+
+SQ4225
+NZ141
+Brisbane
+09 Nov 06:25am
+Est 09 Nov 06:25am
+Check in opens at 4am
+
+QF4
+Sydney
+09 Nov 06:40am
+Est 09 Nov 06:40am
+Check in not open yet
+
+NZ101
+Sydney
+09 Nov 07:00am
+Est 09 Nov 07:00am
+Security opens at 04:30
+
+QF120
+Brisbane
+09 Nov 07:00am
+Est 09 Nov 07:00am
+Check in not open yet
+
+SQ4251
+NZ101
+Sydney
+09 Nov 07:00am
+Est 09 Nov 07:00am
+Security opens at 04:30
+
+VS7685
+NZ101
+Sydney
+09 Nov 07:00am
+Est 09 Nov 07:00am
+Security opens at 04:30
+
+QF142
+Sydney
+09 Nov 07:30am
+Est 09 Nov 07:30am
+Check in not open yet
+
+LA801
+Sydney
+09 Nov 07:35am
+Est 09 Nov 07:35am
+Check in not open yet
+
+FJ412
+Nadi
+09 Nov 08:00am
+Est 09 Nov 08:00am
+Check in not open yet
+
+NZ121
+Melbourne
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+NZ946
+Rarotonga
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+SQ4231
+NZ121
+Melbourne
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+SQ4269
+NZ946
+Rarotonga
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+TG4832
+NZ121
+Melbourne
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+VS7681
+NZ121
+Melbourne
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+VS7660
+NZ946
+Rarotonga
+09 Nov 08:50am
+Est 09 Nov 08:50am
+Security opens at 04:30
+
+NZ970
+Tonga
+09 Nov 08:55am
+Est 09 Nov 08:55am
+Security opens at 04:30
+
+SQ4287
+NZ970
+Tonga
+09 Nov 08:55am
+Est 09 Nov 08:55am
+Security opens at 04:30
+
+NZ103
+Sydney
+09 Nov 09:00am
+Est 09 Nov 09:00am
+Security opens at 04:30
+
+NH7965
+NZ103
+Sydney
+09 Nov 09:00am
+Est 09 Nov 09:00am
+Security opens at 04:30
+
+SQ4243
+NZ103
+Sydney
+09 Nov 09:00am
+Est 09 Nov 09:00am
+Security opens at 04:30
+
+NZ936
+Niue
+09 Nov 09:05am
+Est 09 Nov 09:05am
+Check in opens at 4am
+
+NZ187
+Gold Coast
+09 Nov 09:15am
+Est 09 Nov 09:15am
+Check in opens at 4am
+
+SQ4213
+NZ187
+Gold Coast
+09 Nov 09:15am
+Est 09 Nov 09:15am
+Check in opens at 4am
+
+NZ145
+Brisbane
+09 Nov 09:20am
+Est 09 Nov 09:20am
+Security opens at 04:30
+
+SQ4221
+NZ145
+Brisbane
+09 Nov 09:20am
+Est 09 Nov 09:20am
+Security opens at 04:30
+
+NZ952
+Nadi
+09 Nov 09:35am
+Est 09 Nov 09:35am
+Security opens at 04:30
+
+SQ4263
+NZ952
+Nadi
+09 Nov 09:35am
+Est 09 Nov 09:35am
+Security opens at 04:30
+IE711
+Port Vila
+09 Nov 10:00am
+Est 09 Nov 10:00am
+Check in not open yet
+
+NZ99
+Tokyo
+09 Nov 10:05am
+Est 09 Nov 10:05am
+Check in opens at 4am
+
+NH7951
+NZ99
+Tokyo
+09 Nov 10:05am
+Est 09 Nov 10:05am
+Check in opens at 4am
+
+NZ81
+Hong Kong
+09 Nov 10:10am
+Est 09 Nov 10:10am
+Security opens at 04:30
+
+CX7402
+NZ81
+Hong Kong
+09 Nov 10:10am
+Est 09 Nov 10:10am
+Security opens at 04:30
+
+LH7153
+NZ81
+Hong Kong
+09 Nov 10:10am
+Est 09 Nov 10:10am
+Security opens at 04:30
+
+TG4862
+NZ81
+Hong Kong
+09 Nov 10:10am
+Est 09 Nov 10:10am
+Security opens at 04:30
+
+NZ77
+Taipei
+09 Nov 10:45am
+Est 09 Nov 10:45am
+Check in opens at 4am
+
+NZ105
+Sydney
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+NZ284
+Singapore
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+LH7152
+NZ284
+Singapore
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+SQ4244
+NZ105
+Sydney
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+SQ4284
+NZ284
+Singapore
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+TG4824
+NZ105
+Sydney
+09 Nov 11:10am
+Est 09 Nov 11:10am
+Security opens at 04:30
+
+NZ75
+Seoul
+09 Nov 11:20am
+Est 09 Nov 11:20am
+Check in opens at 4am
+
+KE412
+Seoul
+09 Nov 11:45am
+Est 09 Nov 11:45am
+Check in not open yet

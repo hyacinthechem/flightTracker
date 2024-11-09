@@ -53,7 +53,7 @@ public class Waypoint {
     @Override
 
     public String toString(){
-        return "Waypoint: " + waypointName + "Altitude " + altitude + "\nSpeed: " + speed + "\nHeading: " + heading;
+        return "Waypoint: " + waypointName + "Altitude " + altitude + " \nSpeed: " + speed + " \nHeading: " + heading;
     }
 
 

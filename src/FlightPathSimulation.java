@@ -20,49 +20,7 @@ public class FlightPathSimulation extends JFrame {
     private String currentFlight;
 
     public String priorityRunway;
-
-    private List<Object> allProcedures = new ArrayList<>();
-    private Set<Waypoint> waypoints;
-
-    private List<DepartureSid> sidProcedures;
-    private List<ArrivalStar> starProcedures;
-    private String[] runways = {"RWY05R, RWY23L"};
-
-    public void loaders() {
-        List<String> procedureFiles = Arrays.asList("src/data/RWY05R - BATOS3Q", "src/data/RWY23L - LENGU4P","src/data/RWY05R - BASIV9B", "src/data/RWY23L - LUNBI1N");
-        loadSidStarData(procedureFiles);
-    }
-
-
-    public void loadSidStarData(List<String> procedureFiles) {
-        for (String filePath : procedureFiles) {
-            try (Scanner sc = new Scanner(Path.of(filePath))) {
-                waypoints = new HashSet<>();
-                String procedureName = sc.next();
-                String runway = sc.next();
-                String procedureType = sc.next();
-
-                while(sc.hasNextLine()){
-                    String waypointName = sc.next();
-                    double altitude = sc.nextDouble();
-                    int speed = sc.nextInt();
-                    double heading = sc.nextDouble();
-                    Waypoint wp = new Waypoint(waypointName, altitude, speed, heading);
-                    waypoints.add(wp);
-                }
-                if(procedureType.equals("SID")){
-                    DepartureSid ds = new DepartureSid(procedureName,waypoints,runway);
-                    allProcedures.add(ds);
-                }else{
-                    ArrivalStar ar = new ArrivalStar(procedureName, waypoints, runway);
-                    allProcedures.add(ar);
-                }
-
-            } catch (IOException e) {
-                UI.println("File Failure for " + filePath + " : " + e);
-            }
-        }
-    }
+    public String[] runway = {"RWY05R","RWY23L"};
 
 
     public FlightPathSimulation() {
@@ -191,8 +149,9 @@ public class FlightPathSimulation extends JFrame {
             fp.setVisible(true);
         });
         FlightPathSimulation fps = new FlightPathSimulation();
-        fps.loaders();
-        // fp.setupGUI();
+         fps.setupGUI();
+         FlightData fd = new FlightData();
+         fd.loaders();
         // fp.loadImage();
 
     }
