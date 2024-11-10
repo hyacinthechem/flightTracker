@@ -59,11 +59,11 @@ public class FlightData {
     }
 
     public void loadFlightData(){
-        String[] emirates = {"EK12 Dubai"};
-        String[] airNewZealand = {"NZ148 Brisbane","NZ99 Tokyo","NZ81 Hong Kong","NZ401 Wellington","NZ515 Christchurch","NZ671 Dunedin"};
-        String[] qantas = {"QF154 Melbourne","QF144 Sydney","QF149 Sydney","QF157 Melbourne"};
-        String[] singaporeAirlines = {"SQ286 Singapore","SQ282 Singapore","SQ285 Singapore"};
-        String[] cathayPacific = {"CX198 Hong Kong","CX7401 Hong Kong", "CX113 Hong Kong"};
+        String[] emirates = {"EK449 Dubai Departure"};
+        String[] airNewZealand = {"NZ148 Brisbane Arrival","NZ99 Tokyo Departure","NZ81 Hong Kong Departure ","NZ401 Wellington Departure","NZ515 Christchurch Departure","NZ671 Dunedin Departure"};
+        String[] qantas = {"QF154 Melbourne Departure","QF144 Sydney Departure","QF149 Sydney Arrival","QF157 Melbourne Arrival"};
+        String[] singaporeAirlines = {"SQ286 Singapore Departure","SQ282 Singapore Departure","SQ285 Singapore Arrival"};
+        String[] cathayPacific = {"CX198 Hong Kong Departure","CX7401 Hong Kong Departure", "CX113 Hong Kong Arrival"};
 
         Flight f1 = new Flight(emirates[0],"Airbus A380","Emirates",true );
         for(int i=0; i<airNewZealand.length; i++){

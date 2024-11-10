@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.*;
 
 public class Flight {
-    private String flightNumber;
+    private String flightDetail;
     private String aircraftType;
     private String airline;
     private String runway;
@@ -14,16 +14,16 @@ public class Flight {
     private boolean landed;
 
 
-    public Flight(String flightNumber, String aircraftType, String airline,boolean internationalFlight){
-        this.flightNumber = flightNumber;
+    public Flight(String flightDetail, String aircraftType, String airline,boolean internationalFlight){
+        this.flightDetail = flightDetail;
         this.aircraftType = aircraftType;
         this.airline = airline;
         this.internationalFlight = internationalFlight;
 
     }
 
-    public String getFlightNumber(){
-        return flightNumber;
+    public String getFlightDetail(){
+        return flightDetail;
     }
 
     public String getAircraftType() {
@@ -84,7 +84,7 @@ public class Flight {
 
     @Override
     public String toString(){
-        return "Airline: " + airline + "Aircraft" + aircraftType + "Flight Number: " + flightNumber + "\n";
+        return "Airline: " + airline + "Aircraft" + aircraftType + "Flight Number: " + flightDetail + "\n";
     }
 
 

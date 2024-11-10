@@ -27,10 +27,12 @@ public class FlightPathSimulation extends JFrame {
     public static final double RUNWAY_TOP_LIMIT = 1;
     public static final double APPROACH_LIMIT = 4;
 
+
     private List<Flight> allFlights = flightData.getAllFlights();
     private Queue<Flight> flightQueue; //main queue where flights wait to then be put in runway queue
     private Map<String, Queue<Flight>> runwayQueue = new HashMap();
     private Map<String, Flight> flightMap = new HashMap(); //Key Value pairs mapping flightNumber String to Flight Object
+    public int delay = 400;
 
     private void initialiseSimulation() {
         flightData.loaders();
@@ -42,7 +44,7 @@ public class FlightPathSimulation extends JFrame {
 
         for (Flight flight : allFlights) {
             flightQueue.offer(flight);
-            flightMap.put(flight.getFlightNumber(), flight);
+            flightMap.put(flight.getFlightDetail(), flight);
         }
 
         for (int i = 0; i < runway.length; i++) {
@@ -139,6 +141,7 @@ public class FlightPathSimulation extends JFrame {
                 UI.println("Select A Flight Number");
             }
         });
+
         UI.addButton("Arrival Procedures", () -> {
             sid = false;
             star = true;
@@ -148,6 +151,8 @@ public class FlightPathSimulation extends JFrame {
                 UI.println("Select A Flight Number");
             }
         });
+
+        UI.addSlider("Speed of Simulation",1,400,(double val) ->{val=delay;});
     }
 
     public void runSimulation() {
@@ -155,9 +160,12 @@ public class FlightPathSimulation extends JFrame {
         int time = 0;
         while (!flightQueue.isEmpty()) { //base case ( keep simulation running when there is a flight in the queue )
             time++; //each iteration advances timer by one tick
-
-            departureRoutingProcess(flightQueue.poll().getFlightNumber());
-            arrivalRoutingProcess(flightQueue.poll().getFlightNumber());
+            Flight flight = flightQueue.poll();
+            if(flight.getFlightDetail().contains("Departure")){
+                departureRoutingProcess(flight.getFlightDetail());
+            }else{
+                arrivalRoutingProcess(flight.getFlightDetail());
+            }
 
         }
 
@@ -174,51 +182,59 @@ public class FlightPathSimulation extends JFrame {
 
     }
 
-    public void departureRoutingProcess(String flightnumber) {
-        Flight flight = flightMap.get(flightnumber);
-        for (Queue<Flight> runwayQueue : runwayQueue.values()) {
-            if (runwayQueue.size() < RUNWAY_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
-                runwayQueue.offer(flight);
-                UI.println("Flight Number: " + flight.getFlightNumber() + " Entered runway queue");
+    public void departureRoutingProcess(String flightDetail) {
+        Flight flight = flightMap.get(flightDetail);
+        Random rand = new Random();
+        flight.assignRunway(runway[rand.nextInt(1)]);
+        for (Queue<Flight> runway : runwayQueue.values()) {
+            if (runway.size() < RUNWAY_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
+                runway.offer(flight);
+                UI.println("Flight Number: " + flight.getFlightDetail() + " Entered runway queue");
+                UI.sleep(delay);
             }
 
             // assign a runway
-            Random rand = new Random();
-            flight.assignRunway(runway[rand.nextInt(1)]);
+
             //generate a SID Departure Process
             List<DepartureSid> sidProcedures = flightData.getSidProcedures();
             for (DepartureSid sid : sidProcedures) {
                 if (flight.getRunway().equals(sid.getRunway())) {
-                    UI.println("Flight Number: " + flight.getFlightNumber() + "Assigned SID: " + sid.getSIDProcedureName());
+                    UI.println("Flight Number: " + flight.getFlightDetail() + "Assigned SID: " + sid.getSIDProcedureName());
+                    UI.sleep(delay);
                 }
             }
             flight.setTakeoff(true);
-            runwayQueue.poll();
+            runway.poll();
         }
 
     }
 
-    public void arrivalRoutingProcess(String flightnumber) {
-        Flight flight = flightMap.get(flightnumber);
+    public void arrivalRoutingProcess(String flightDetail) {
+        Flight flight = flightMap.get(flightDetail);
         Random rand = new Random();
         flight.assignRunway(runway[rand.nextInt(1)]);
-        for (Queue<Flight> runwayQueue : runwayQueue.values()) {
-            if (runwayQueue.size() < APPROACH_LIMIT && runwayQueue.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) {
-                runwayQueue.offer(flight);
-                UI.println("Flight Number: " + flight.getFlightNumber() + " Entered approach for Runway:  " + flight.getRunway());
+        for (Queue<Flight> runway : runwayQueue.values()) {
+            if (runway.size() < APPROACH_LIMIT && runway.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) {
+                runway.offer(flight);
+                UI.println("Flight Number: " + flight.getFlightDetail() + " Entered approach for Runway:  " + flight.getRunway());
+                UI.sleep(delay);
             }
+            runway.poll();
+        }
+        List<ArrivalStar> arrivalProcedures = flightData.getArrivalProcedures();
 
-            List<ArrivalStar> arrivalProcedures = flightData.getArrivalProcedures();
-            for (ArrivalStar STAR : arrivalProcedures) {
-                if (flight.getRunway().equals(STAR.getRunway())) {
-                    UI.println("Flight Number: " + flight.getFlightNumber() + "Assigned STAR" + STAR.getSTARProcedureName());
-                }
-                UI.println("Flight Number: " + flight.getFlightNumber() + "Cleared to Land Runway  " + STAR.getRunway());
+        for (ArrivalStar STAR : arrivalProcedures) {
+            if (flight.getRunway().equals(STAR.getRunway())) {
+                UI.println("Flight Number: " + flight.getFlightDetail() + " Assigned STAR " + STAR.getSTARProcedureName());
+                UI.sleep(delay);
+                UI.println("Flight Number: " + flight.getFlightDetail() + "Cleared to Land Runway  " + STAR.getRunway());
+                UI.sleep(delay);
                 flight.setLanded(true);
             }
         }
         if (flight.hasLanded()) {
             UI.println("Landed");
+            UI.sleep(delay);
         }
     }
 
