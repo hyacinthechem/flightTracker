@@ -28,11 +28,17 @@ public class FlightPathSimulation extends JFrame {
     public static final double APPROACH_LIMIT = 4;
 
 
+
     private List<Flight> allFlights = flightData.getAllFlights();
     private Queue<Flight> flightQueue; //main queue where flights wait to then be put in runway queue
+    private Queue<Lineup<Flight>> lineupQueue = new ArrayDeque<>();
     private Map<String, Queue<Flight>> runwayQueue = new HashMap();
     private Map<String, Flight> flightMap = new HashMap(); //Key Value pairs mapping flightNumber String to Flight Object
     public int delay = 400;
+
+    public int offset = 5;
+    public int positionX = 520 + ( lineupQueue.size() * offset );
+    public int poisitionY = 340 + ( lineupQueue.size() * offset );
 
     private void initialiseSimulation() {
         flightData.loaders();
@@ -153,6 +159,13 @@ public class FlightPathSimulation extends JFrame {
         });
 
         UI.addSlider("Speed of Simulation",1,400,(double val) ->{val=delay;});
+        UI.setMouseListener(this::doMouse);
+    }
+
+    public void doMouse(String action, double x, double y){
+        if(action.equals("pressed")){
+            UI.println("Pressed at X: " + x + " Y: " + y);
+        }
     }
 
     public void runSimulation() {
@@ -162,36 +175,32 @@ public class FlightPathSimulation extends JFrame {
             time++; //each iteration advances timer by one tick
             Flight flight = flightQueue.poll();
             if(flight.getFlightDetail().contains("Departure")){
-                departureRoutingProcess(flight.getFlightDetail());
+                departureRoutingProcess(flight.getFlightDetail()); //departing flights
             }else{
-                arrivalRoutingProcess(flight.getFlightDetail());
+                arrivalRoutingProcess(flight.getFlightDetail()); //arrival flights
             }
 
         }
-
-        //departingflights
-
-
-        //generateDepartingFlight()  => create separate class to deal with this
-        //generateSidDeparture()
-
-        //Arrival Flights
-        //generateArrivalFlight()  => create separate class to deal with this
-        //generateStarDeparture()
-
 
     }
 
     public void departureRoutingProcess(String flightDetail) {
         Flight flight = flightMap.get(flightDetail);
         Random rand = new Random();
-        flight.assignRunway(runway[rand.nextInt(1)]);
-        for (Queue<Flight> runway : runwayQueue.values()) {
-            if (runway.size() < RUNWAY_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
-                runway.offer(flight);
-                UI.println("Flight Number: " + flight.getFlightDetail() + " Entered runway queue");
+        flight.assignRunway(runway[rand.nextInt(2)]);
+         Queue<Flight> runway = runwayQueue.get(flight.getRunway());
+            if (runway!=null &&runway.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
+                if(lineupQueue.size()<RUNWAY_LIMIT){
+                    lineupQueue.offer(new Lineup(flight,positionX,poisitionY,true));
+                    flight.draw(positionX,poisitionY);
+                    runway.offer(flight);
+                }
+                UI.println("Flight Number: " + flight.getFlightDetail() + " Lined Up " + flight.getRunway());
                 UI.sleep(delay);
+                runway.poll();
+                lineupQueue.poll();
             }
+
 
             // assign a runway
 
@@ -199,27 +208,30 @@ public class FlightPathSimulation extends JFrame {
             List<DepartureSid> sidProcedures = flightData.getSidProcedures();
             for (DepartureSid sid : sidProcedures) {
                 if (flight.getRunway().equals(sid.getRunway())) {
-                    UI.println("Flight Number: " + flight.getFlightDetail() + "Assigned SID: " + sid.getSIDProcedureName());
+                    UI.println("Flight Number: " + flight.getFlightDetail() + " Assigned SID: " + sid.getSIDProcedureName());
                     UI.sleep(delay);
+                    flight.setTakeoff(true);
+                    UI.println("Flight Number: " + flight.getFlightDetail() + " Cleared for Takeoff " + flight.getRunway());
                 }
             }
-            flight.setTakeoff(true);
-            runway.poll();
-        }
 
+        if(flight.hasTakenOff()){
+            UI.println("Takeoff at " + flight.getRunway());
+        }
+        UI.sleep(delay);
     }
 
     public void arrivalRoutingProcess(String flightDetail) {
         Flight flight = flightMap.get(flightDetail);
         Random rand = new Random();
-        flight.assignRunway(runway[rand.nextInt(1)]);
+        flight.assignRunway(runway[rand.nextInt(2)]);
         for (Queue<Flight> runway : runwayQueue.values()) {
             if (runway.size() < APPROACH_LIMIT && runway.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) {
                 runway.offer(flight);
                 UI.println("Flight Number: " + flight.getFlightDetail() + " Entered approach for Runway:  " + flight.getRunway());
                 UI.sleep(delay);
+                runway.poll();
             }
-            runway.poll();
         }
         List<ArrivalStar> arrivalProcedures = flightData.getArrivalProcedures();
 
@@ -227,21 +239,23 @@ public class FlightPathSimulation extends JFrame {
             if (flight.getRunway().equals(STAR.getRunway())) {
                 UI.println("Flight Number: " + flight.getFlightDetail() + " Assigned STAR " + STAR.getSTARProcedureName());
                 UI.sleep(delay);
-                UI.println("Flight Number: " + flight.getFlightDetail() + "Cleared to Land Runway  " + STAR.getRunway());
+                UI.println("Flight Number: " + flight.getFlightDetail() + " Cleared to Land Runway  " + STAR.getRunway());
                 UI.sleep(delay);
                 flight.setLanded(true);
             }
+
         }
         if (flight.hasLanded()) {
-            UI.println("Landed");
+            UI.println("Landed at " + flight.getRunway());
+
             UI.sleep(delay);
         }
     }
 
 
     public static void loadImage() {
-        String filePath = "src/airport.png";
-        UI.drawImage(filePath, 100, 200);
+        String filePath = "src/airport.jpg";
+        UI.drawImage(filePath, 200, 200);
     }
 
 
