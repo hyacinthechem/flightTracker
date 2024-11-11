@@ -17,7 +17,7 @@ public class FlightPathSimulation extends JFrame {
     private JLabel imageLabel;
     private boolean sid;
     private boolean star;
-    private boolean prioirty = false;
+    private boolean prioirty=false; //default
     private String currentFlight;
     private FlightData flightData = new FlightData();
 
@@ -96,10 +96,8 @@ public class FlightPathSimulation extends JFrame {
         departureButton.addActionListener(e -> {
             sid = true;
             star = false;
-            if (currentFlight != null) {
+            while(!flightQueue.isEmpty()) {
                 departureRoutingProcess(currentFlight);
-            } else {
-                UI.println("Please Select a Flight");
             }
 
         });
@@ -111,10 +109,8 @@ public class FlightPathSimulation extends JFrame {
         arrivalButton.addActionListener(e -> {
             sid = false;
             star = true;
-            if (currentFlight != null) {
+            while(!flightQueue.isEmpty()) {
                 arrivalRoutingProcess(currentFlight);
-            } else {
-                UI.println("Please Select a Flight");
             }
         });
 
@@ -135,6 +131,11 @@ public class FlightPathSimulation extends JFrame {
     public void setupGUI() {
 
         UI.addButton("Run Simulation", this::runSimulation);
+        UI.addButton("Run Priority Simulation" , () -> {
+            this.prioirty = true;
+            initialiseSimulation();
+            runSimulation();
+        });
         UI.addTextField("Flight Number", (String flightNum) -> {
             this.currentFlight = flightNum;
         });
@@ -188,12 +189,16 @@ public class FlightPathSimulation extends JFrame {
         Flight flight = flightMap.get(flightDetail);
         Random rand = new Random();
         flight.assignRunway(runway[rand.nextInt(2)]);
-         Queue<Flight> runway = runwayQueue.get(flight.getRunway());
+         Queue<Flight> runway = runwayQueue.get(flight.getRunway()); //retrieve runway for flight assigned the runwayQueue
             if (runway!=null &&runway.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) { //check that runway queue has space and that flightqueue isnt empty
-                if(lineupQueue.size()<RUNWAY_LIMIT){
-                    lineupQueue.offer(new Lineup(flight,positionX,poisitionY,true));
-                    flight.draw(positionX,poisitionY);
-                    runway.offer(flight);
+                if(lineupQueue.size()<RUNWAY_LIMIT){ //if the queue is less than 3 on lineup line then offer it to queue
+                    if(flight.getRunway().equals("RWY05R")) {
+                        lineupQueue.offer(new Lineup(flight, positionX, poisitionY, true));
+                    }else{
+                        lineupQueue.offer(new Lineup(flight, 251, 250 + (lineupQueue.size() * 3), true));
+                    }
+                    flight.draw(lineupQueue.peek().getX(),lineupQueue.peek().getY()); //draw the flight on Queue
+                    runway.offer(flight); //put the flight in the runwayqueue system
                 }
                 UI.println("Flight Number: " + flight.getFlightDetail() + " Lined Up " + flight.getRunway());
                 UI.sleep(delay);
@@ -222,15 +227,15 @@ public class FlightPathSimulation extends JFrame {
     }
 
     public void arrivalRoutingProcess(String flightDetail) {
-        Flight flight = flightMap.get(flightDetail);
+        Flight flight = flightMap.get(flightDetail); //retrieve flight Object with associated flight detail
         Random rand = new Random();
-        flight.assignRunway(runway[rand.nextInt(2)]);
+        flight.assignRunway(runway[rand.nextInt(2)]); //assign random runway between 23L and 05R
         for (Queue<Flight> runway : runwayQueue.values()) {
             if (runway.size() < APPROACH_LIMIT && runway.size() < RUNWAY_TOP_LIMIT && !flightQueue.isEmpty()) {
-                runway.offer(flight);
+                runway.offer(flight); //offer the flight to the runwayQueue
                 UI.println("Flight Number: " + flight.getFlightDetail() + " Entered approach for Runway:  " + flight.getRunway());
                 UI.sleep(delay);
-                runway.poll();
+                runway.poll(); //remove from runwayQueue
             }
         }
         List<ArrivalStar> arrivalProcedures = flightData.getArrivalProcedures();
@@ -247,7 +252,6 @@ public class FlightPathSimulation extends JFrame {
         }
         if (flight.hasLanded()) {
             UI.println("Landed at " + flight.getRunway());
-
             UI.sleep(delay);
         }
     }

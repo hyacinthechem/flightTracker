@@ -4,7 +4,8 @@ import ecs100.*;
 import java.awt.*;
 import java.util.*;
 
-public class Flight {
+public class Flight implements Comparable<Flight> {
+
     private String flightDetail;
     private String aircraftType;
     private String airline;
@@ -38,23 +39,30 @@ public class Flight {
         return internationalFlight;
     }
 
+    public static final double diam = 5;
+
     public void draw(double x, double y){
         switch(airline){
             case "Air New Zealand":
                 UI.setColor(Color.blue);
-                UI.fillOval(x,y,x+100, y+100);
+                UI.fillOval(x,y,diam,diam);
+                break;
             case "Emirates":
                 UI.setColor(new Color(199,151,61));
-                UI.fillOval(x,y,x+100, y+100);
+                UI.fillOval(x,y,diam, diam);
+                break;
             case "Singapore Airlines":
                 UI.setColor(new Color(212,175,55));
-                UI.fillOval(x,y,x+100, y+100);
+                UI.fillOval(x,y,diam, diam);
+                break;
             case "Cathay Pacific":
                 UI.setColor(new Color(0,102,102));
-                UI.fillOval(x,y,x+100, y+100);
+                UI.fillOval(x,y,diam, diam);
+                break;
             case "Qantas":
                 UI.setColor(Color.red);
-                UI.fillOval(x,y,x+100, y+100);
+                UI.fillOval(x,y,diam, diam);
+                break;
         }
     }
 
@@ -85,6 +93,12 @@ public class Flight {
     @Override
     public String toString(){
         return "Airline: " + airline + "Aircraft" + aircraftType + "Flight Number: " + flightDetail + "\n";
+    }
+
+
+    @Override
+    public int compareTo(Flight other){
+        return Boolean.compare(other.internationalFlight,this.internationalFlight);
     }
 
 
